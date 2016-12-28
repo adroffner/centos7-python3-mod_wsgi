@@ -10,6 +10,7 @@ ENV HTTP_PROXY="http://one.proxy.att.com:8080"
 ENV HTTPS_PROXY="http://one.proxy.att.com:8080"
 
 # Update CentOS 7 per Docker advice.
+USER root
 RUN yum -y update
 
 # Install Apache2 for use from port 80.
@@ -26,12 +27,10 @@ RUN yum -y clean all
 
 # "apache" runs a sample "hello world" WSGI script.
 # =============================================================================
-USER apache
-
 WORKDIR /home/apache
 COPY ./hello.wsgi ./hello.wsgi
 
 # Start an "application container"
 EXPOSE 8001
-ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi --maximum-requests=250 --host 0.0.0.0 --port 8001
+ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi --user apache --maximum-requests=250 --host 0.0.0.0 --port 8001
 

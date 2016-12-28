@@ -12,4 +12,4 @@ TAG="3.5.2"
 
 IMAGE_TAG="${REPOSITORY}/${IMAGE_NAME}:${TAG}"
 
-docker run -ti -p 8001:8001 $IMAGE_TAG
+docker run --rm -ti -p 8001:8001 $IMAGE_TAG

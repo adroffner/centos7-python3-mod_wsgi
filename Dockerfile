@@ -32,5 +32,7 @@ COPY ./hello.wsgi ./hello.wsgi
 
 # Start an "application container"
 EXPOSE 8001
-ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi --user apache --maximum-requests=250 --host 0.0.0.0 --port 8001
-
+ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi \
+    --user apache --maximum-requests=250 \
+    --log-to-terminal --log-level DEBUG \
+    --host 0.0.0.0 --port 8001

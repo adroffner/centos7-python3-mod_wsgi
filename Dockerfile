@@ -34,5 +34,8 @@ COPY ./hello.wsgi ./hello.wsgi
 EXPOSE 8001
 ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi \
     --user apache --maximum-requests=250 \
+    --access-log \
+    --access-log-format "[hello-world][%>s] %h %l %u %b \"%{Referer}i\" \"%{User-agent}i\" \"%r\"" \
+    --error-log-format  "[hello-world][%l] %M" \
     --log-to-terminal --log-level DEBUG \
     --host 0.0.0.0 --port 8001

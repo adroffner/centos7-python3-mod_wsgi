@@ -16,5 +16,5 @@ IMAGE_TAG="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
 # NOTE: The --log-driver=* and other logging flags must be to the left (before) the Docker container name (or ID).
 docker run --rm -ti -p 8001:8001 \
-    --log-driver=syslog --log-opt syslog-address=unixgram:///dev/log --log-opt syslog-facility=user \
+    --log-driver=syslog --log-opt syslog-address=udp://localhost:514 --log-opt syslog-facility=user \
     $IMAGE_TAG

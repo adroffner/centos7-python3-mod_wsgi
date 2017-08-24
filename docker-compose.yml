@@ -1,7 +1,7 @@
 version: '2'
 services:
-    hello_world:
-         image: zlp11313.vci.att.com:5100/com.att.dev.argos/centos7-python3-mod_wsgi:latest
+    web:
+         image: zlp11313.vci.att.com:5100/com.att.dev.argos/centos7-python3-mod_wsgi:${TAG}
          container_name: hello_mod_wsgi
          ports:
              - "8001:8001"

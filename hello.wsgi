@@ -26,7 +26,7 @@ logger.addHandler(handler)
 
 def application(environ, start_response):
     status = '200 OK'
-    output = b'Hello World!'
+    output = b'Hello to the World!'
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]

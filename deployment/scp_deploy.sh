@@ -30,5 +30,5 @@ ssh ${DEPLOY_HOST} ${SSH_CMD}
 
 cd -
 
-echo "Ready to Deploy: $IMAGE_TAG"
+echo "Deployed: $IMAGE_TAG"
 echo

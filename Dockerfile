@@ -9,9 +9,7 @@ ENV https_proxy="http://one.proxy.att.com:8080"
 ENV HTTP_PROXY="http://one.proxy.att.com:8080"
 ENV HTTPS_PROXY="http://one.proxy.att.com:8080"
 
-# Update CentOS 7 per Docker advice.
 USER root
-RUN yum -y update
 
 # Install Apache2 for use from port 80.
 # =============================================================================

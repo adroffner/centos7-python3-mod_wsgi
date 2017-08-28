@@ -10,14 +10,14 @@ source ./deployment/configs.env
 echo
 echo "Building Docker image: $IMAGE_TAG ..."
 
-docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
+sudo docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
 
-docker build -t $IMAGE_TAG \
+sudo docker build -t $IMAGE_TAG \
     --build-arg http_proxy=$http_proxy \
     --build-arg https_proxy=$https_proxy \
     ./
 
-docker logout ${REGISTRY}
+sudo docker logout ${REGISTRY}
 
 echo "DONE: $IMAGE_TAG"
 echo

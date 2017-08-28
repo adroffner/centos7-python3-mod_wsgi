@@ -16,6 +16,7 @@ sudo docker build -t $IMAGE_TAG \
     --build-arg http_proxy=$http_proxy \
     --build-arg https_proxy=$https_proxy \
     ./
+sudo docker push $IMAGE_TAG
 
 sudo docker logout ${REGISTRY}
 

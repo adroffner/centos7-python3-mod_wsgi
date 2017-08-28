@@ -29,8 +29,10 @@ scp git-${PROJECT_NAME}.tar.gz ${BUILD_HOST}:${BUILD_DIR}
 SSH_CMD="/bin/bash -c \"cd ${BUILD_DIR} && tar -xzf git-${PROJECT_NAME}.tar.gz && cd ./${PROJECT_NAME} && ./deployment/build.sh\""
 echo SSH_CMD ${SSH_CMD}
 ssh ${BUILD_HOST} ${SSH_CMD}
+RETCODE=$?
 
 cd -
 
 echo "Build Finished: $IMAGE_TAG"
 echo
+exit $RETCODE

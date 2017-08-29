@@ -29,7 +29,7 @@ def application(environ, start_response):
     status = '200 OK'
     output = [b'Hello Dockerized World!']
     request_params = [
-        b'%s: %s' % (key, value) for key, value in sorted(environ.items())
+        '{}: {}'.format(key, value).encode('ascii') for key, value in sorted(environ.items())
     ]
     output.extend(request_params)
     output = b'\n'.join(output)

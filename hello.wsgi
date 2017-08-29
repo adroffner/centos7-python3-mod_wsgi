@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import logging
 import logging.handlers
 
@@ -26,7 +27,12 @@ logger.addHandler(handler)
 
 def application(environ, start_response):
     status = '200 OK'
-    output = b'Hello Dockerized World!'
+    output = [b'Hello Dockerized World!']
+    request_params = [
+        b'%s: %s' % (key, value) for key, value in sorted(environ.items())
+    ]
+    output.extend(request_params)
+    output = b'\n'.join(output)
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]

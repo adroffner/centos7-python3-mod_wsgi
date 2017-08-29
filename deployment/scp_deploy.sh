@@ -22,9 +22,11 @@ echo "Copy docker-compose Deployment: $IMAGE_TAG ..."
 
 cd ${PROJECT_DIR}
 
+# Pack docker-compose deployment scripts & add version.txt file...
 tar -cvf deploy-${PROJECT_NAME}.tar  ../${PROJECT_NAME}/deployment/ ../${PROJECT_NAME}/docker-compose-*.yml
 scp deploy-${PROJECT_NAME}.tar ${DEPLOY_HOST}:${DEPLOY_DIR}
 
+# Send deployment scripts to host and run them.
 SSH_CMD="/bin/bash -c \"cd ${DEPLOY_DIR} && tar -xf deploy-${PROJECT_NAME}.tar && cd ./${PROJECT_NAME} && ./deployment/deploy.sh ${TIER}\""
 echo SSH_CMD ${SSH_CMD}
 ssh ${DEPLOY_HOST} ${SSH_CMD}

@@ -21,16 +21,21 @@ echo "Copy Docker Build: $IMAGE_TAG ..."
 
 cd ${PROJECT_DIR}
 
-# Create Git archive:
 # Use latest "git tag" to create a version or HEAD.
 if [ -z "$TAG" ]; then
     GIT_TAG="HEAD"
 else
     GIT_TAG=${TAG}
 fi
-git archive --prefix=${PROJECT_NAME}/ -o git-${PROJECT_NAME}.tar.gz ${GIT_TAG}
+
+# Create Git archive and transfer:
+git archive --prefix=${PROJECT_NAME}/ -o git-${PROJECT_NAME}.tar ${GIT_TAG}
+# Add version.txt file and compress...
+tar -rf git-${PROJECT_NAME}.tar ../${PROJECT_NAME}/deployment/version.txt
+gzip git-${PROJECT_NAME}.tar
 scp git-${PROJECT_NAME}.tar.gz ${BUILD_HOST}:${BUILD_DIR}
 
+# Unpack source TAR and build docker image:
 SSH_CMD="/bin/bash -c \"cd ${BUILD_DIR} && tar -xzf git-${PROJECT_NAME}.tar.gz && cd ./${PROJECT_NAME} && ./deployment/build.sh\""
 echo SSH_CMD ${SSH_CMD}
 ssh ${BUILD_HOST} ${SSH_CMD}

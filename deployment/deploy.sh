@@ -30,6 +30,10 @@ echo "Deploying Docker image: $IMAGE_TAG ..."
 
 cd ${PROJECT_DIR}
 
+# Rewrite docker-compose-*.yml to use the current version tag:
+export TAG
+perl -pi -e 's/:\$TAG$/:$ENV{TAG}/;' docker-compose-${TIER}.yml
+
 sudo docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
 
 sudo docker-compose -f docker-compose-${TIER}.yml pull web

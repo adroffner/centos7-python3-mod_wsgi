@@ -20,5 +20,7 @@ sudo docker push $IMAGE_TAG
 
 sudo docker logout ${REGISTRY}
 
+./deployment/cleanup_docker.sh
+
 echo "DONE: $IMAGE_TAG"
 echo

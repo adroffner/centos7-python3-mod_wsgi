@@ -42,6 +42,8 @@ sudo docker-compose -f docker-compose-${TIER}.yml up -d
 
 sudo docker logout ${REGISTRY}
 
+./deployment/cleanup_docker.sh
+
 cd -
 
 echo "Deployed: $IMAGE_TAG"

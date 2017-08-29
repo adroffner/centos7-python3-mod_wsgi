@@ -27,7 +27,7 @@ logger.addHandler(handler)
 
 def application(environ, start_response):
     status = '200 OK'
-    output = [b'Hello Dockerized World!']
+    output = [b'Hello Dockerized World!', b'\n' * 2]
     request_params = [
         '{}: {}'.format(key, value).encode('ascii')
         for key, value in sorted(environ.items())

@@ -1,7 +1,7 @@
 version: '2'
 services:
     web:
-         image: zlp11313.vci.att.com:5100/com.att.dev.argos/centos7-python3-mod_wsgi:latest
+         image: dockercentral.it.att.com:5100/com.att.dev.argos/centos7-python3-mod_wsgi:latest
          container_name: hello_mod_wsgi
          ports:
              - "8001:8001"

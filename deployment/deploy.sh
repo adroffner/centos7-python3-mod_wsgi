@@ -7,6 +7,37 @@
 
 source ./deployment/configs.env
 
+SUDO="sudo" # default
+
+# =============================================================================
+
+# Execute getopt
+ARGS=`getopt -o "S" -l "no-sudo" -n "getopt.sh" -- "$@"`
+
+# Bad arguments
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+# A little magic
+eval set -- "$ARGS"
+
+# Now go through all the options
+while true; do
+    case "$1" in
+        -S|--no-sudo)
+            SUDO=""
+            shift 1
+        ;;
+        --)
+            shift 1
+            break
+        ;;
+    esac
+done
+
+# =============================================================================
+
 # Pass docker-compose TIER as a parameter:
 TIER=$1
 case $TIER in
@@ -34,15 +65,19 @@ cd ${PROJECT_DIR}
 export TAG
 perl -pi -e 's/:\$TAG$/:$ENV{TAG}/;' docker-compose-${TIER}.yml
 
-sudo docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
+$SUDO docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
 
-sudo docker-compose -f docker-compose-${TIER}.yml pull web
-sudo docker-compose -f docker-compose-${TIER}.yml down
-sudo docker-compose -f docker-compose-${TIER}.yml up -d
+$SUDO docker-compose -f docker-compose-${TIER}.yml pull web
+$SUDO docker-compose -f docker-compose-${TIER}.yml down
+$SUDO docker-compose -f docker-compose-${TIER}.yml up -d
 
-sudo docker logout ${REGISTRY}
+$SUDO docker logout ${REGISTRY}
 
-./deployment/cleanup_docker.sh
+if [ "$SUDO" ]; then
+    ./deployment/cleanup_docker.sh
+else
+    ./deployment/cleanup_docker.sh -S
+fi
 
 cd -
 

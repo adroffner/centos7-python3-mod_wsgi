@@ -8,11 +8,12 @@
 source ./deployment/configs.env
 
 SUDO="sudo" # default
+SHUTDOWN_FLAG="" # default off
 
 # =============================================================================
 
 # Execute getopt
-ARGS=`getopt -o "S" -l "no-sudo" -n "getopt.sh" -- "$@"`
+ARGS=`getopt -o "SH" -l "no-sudo,shutdown" -n "getopt.sh" -- "$@"`
 
 # Bad arguments
 if [ $? -ne 0 ]; then
@@ -27,6 +28,10 @@ while true; do
     case "$1" in
         -S|--no-sudo)
             SUDO=""
+            shift 1
+        ;;
+        -H|--shutdown)
+            SHUTDOWN_FLAG="true"
             shift 1
         ;;
         --)
@@ -67,9 +72,13 @@ perl -pi -e 's/:\$TAG$/:$ENV{TAG}/;' docker-compose-${TIER}.yml
 
 $SUDO docker login -u ${REG_MECHID}@${NAMESPACE} -p ${REG_PASSWD} -e ${REG_MECHID}@att.com ${REGISTRY}
 
-$SUDO docker-compose -f docker-compose-${TIER}.yml pull web
-$SUDO docker-compose -f docker-compose-${TIER}.yml down
-$SUDO docker-compose -f docker-compose-${TIER}.yml up -d
+if [ "$SHUTDOWN_FLAG" ]; then
+    $SUDO docker-compose -f docker-compose-${TIER}.yml down
+else
+    $SUDO docker-compose -f docker-compose-${TIER}.yml pull web
+    $SUDO docker-compose -f docker-compose-${TIER}.yml down
+    $SUDO docker-compose -f docker-compose-${TIER}.yml up -d
+fi
 
 $SUDO docker logout ${REGISTRY}
 

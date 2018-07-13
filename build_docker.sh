@@ -9,7 +9,7 @@ REGISTRY="zlp11313.vci.att.com:5100"
 NAMESPACE="com.att.dev.argos"
 IMAGE_NAME="centos7-python3-mod_wsgi"
 # TAG="3.5.2"
-TAG="latest"
+TAG="with-TCL"
 
 IMAGE_TAG="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
 

@@ -1,6 +1,6 @@
 # CentOS 7 - Python 3 and Apache/MOD_WSGI (See mod_wsgi-express)
 # =============================================================================
-FROM zlp11313.vci.att.com:5100/com.att.dev.argos/centos7-python3:with-TCL
+FROM dockercentral.it.att.com:5100/com.att.dev.argos/centos7-python3:with-TCL
 MAINTAINER "Andrew Droffner" <ad718x@att.com>
 
 # HTTP Proxy Settings

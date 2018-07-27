@@ -6,13 +6,7 @@
 # This is NOT run in "detached" (-d) mode.
 # =============================================================================
 
-REGISTRY="zlp11313.vci.att.com:5100"
-NAMESPACE="com.att.dev.argos"
-IMAGE_NAME="centos7-python3-mod_wsgi"
-# TAG="3.5.2"
-TAG="latest"
-
-IMAGE_TAG="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
+source ./deployment/configs.env
 
 # NOTE: The --log-driver=* and other logging flags must be to the left (before) the Docker container name (or ID).
 docker run --rm -ti -p 8001:8001 \

@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import logging
 import logging.handlers
 
@@ -26,7 +27,14 @@ logger.addHandler(handler)
 
 def application(environ, start_response):
     status = '200 OK'
-    output = b'Hello World!'
+    output = [b'Hello Dockerized World!', b'\n' * 2]
+    request_params = [
+        '{}: {}'.format(key, value).encode('ascii')
+        for key, value in sorted(environ.items())
+        if key.startswith('wsgi.')
+    ]
+    output.extend(request_params)
+    output = b'\n'.join(output)
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]

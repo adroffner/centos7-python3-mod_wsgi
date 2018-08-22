@@ -1,6 +1,6 @@
 # CentOS 7 - Python 3 and Apache/MOD_WSGI (See mod_wsgi-express)
 # =============================================================================
-FROM dockercentral.it.att.com:5100/com.att.dev.argos/centos7-python3:latest
+FROM dockercentral.it.att.com:5100/com.att.dev.argos/centos7-python3:3.6.6
 
 # HTTP Proxy Settings
 ENV http_proxy="http://one.proxy.att.com:8080"

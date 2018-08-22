@@ -2,8 +2,7 @@
 #
 # Docker Image: CentOS 7 - Python 3 and Apache/MOD_WSGI
 # =============================================================================
-# Run docker image in a new container.
-# This is NOT run in "detached" (-d) mode.
+# Build docker image
 # =============================================================================
 
 REGISTRY="dockercentral.it.att.com:5100"
@@ -13,4 +12,8 @@ TAG="3.6.6"
 
 FULL_IMAGE_NAME="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
-docker run --rm -ti -p 8001:8001 $FULL_IMAGE_NAME
+docker login -u m12292@argos.dev.att.com -p 3W2-CDP-naF-3aN -e m12292@att.com ${REGISTRY}
+
+docker build -t $FULL_IMAGE_NAME ./ \
+    --build-arg http_proxy=$http_proxy \
+    --build-arg https_proxy=$https_proxy

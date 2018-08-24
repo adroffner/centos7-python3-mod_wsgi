@@ -10,3 +10,8 @@ Python WSGI Applications
 This image may be used to build **Python WSGI applications**, such as **Django servers**.
 Use **Python**, **Django**, or even **Flask** to make a Webserver.
 
+Option: IBM-3270 Terminal Sessions
+----------------------------------
+
+An additional docker image may be created to support **telnet 3270 seesions**.
+This image adss the _headless_ **/usr/bin/s3270** command.

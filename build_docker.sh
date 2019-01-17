@@ -8,8 +8,8 @@
 # IBM-3270 support when non-empty string.
 IBM_3270=""
 
-REGISTRY="dockercentral.it.att.com:5100"
-NAMESPACE="com.att.dev.argos"
+REGISTRY="dockercentral.it.example.com:5100"
+NAMESPACE="com.example.dev"
 IMAGE_NAME="centos7-python3-mod_wsgi"
 TAG="3.6.6"
 
@@ -25,7 +25,7 @@ fi
 
 FULL_IMAGE_NAME="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
-docker login -u m12292@argos.dev.att.com -p 3W2-CDP-naF-3aN -e m12292@att.com ${REGISTRY}
+docker login -u user@dev.example.com -p password ${REGISTRY}
 
 docker build -t $FULL_IMAGE_NAME ./ \
     --build-arg http_proxy=$http_proxy \

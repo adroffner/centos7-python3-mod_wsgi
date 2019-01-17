@@ -2,7 +2,7 @@
 # =============================================================================
 # IBM-3270 "headless" support added to WSGI service.
 # =============================================================================
-FROM dockercentral.it.att.com:5100/com.att.dev.argos/centos7-python3-mod_wsgi:3.6.6
+FROM dockercentral.it.example.com:5100/com.example.dev.argos/centos7-python3-mod_wsgi:3.6.6
 
 # Install IBM-3270 "telnet 3270" support.
 # =============================================================================

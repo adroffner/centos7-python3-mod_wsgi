@@ -6,8 +6,8 @@
 # This is NOT run in "detached" (-d) mode.
 # =============================================================================
 
-REGISTRY="dockercentral.it.att.com:5100"
-NAMESPACE="com.att.dev.argos"
+REGISTRY="dockercentral.it.example.com:5100"
+NAMESPACE="com.example.dev.argos"
 IMAGE_NAME="centos7-python3-mod_wsgi"
 TAG="3.6.6"
 

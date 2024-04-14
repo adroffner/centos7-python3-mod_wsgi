@@ -15,5 +15,13 @@ Hello World WSGI Application
 
 There is a sample **hello world** WSGI application service.
 
-[Hello World on localhost:8001](http://localhost:8001/)
+```bash
+[user] docker compose up
+```
+
+Click on the [Hello World on localhost:8001](http://localhost:8001/) link.
+
+```bash
+[user] docker compose down
+```
 

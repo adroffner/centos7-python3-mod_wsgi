@@ -5,27 +5,21 @@
 # Build docker image
 # =============================================================================
 
-# IBM-3270 support when non-empty string.
-IBM_3270=""
-
-REGISTRY="dockercentral.it.example.com:5100"
+## REGISTRY="dockercentral.it.example.com:5100/"
+REGISTRY=""  # Docker Hub is implied.
 NAMESPACE="com.example.dev"
 IMAGE_NAME="centos7-python3-mod_wsgi"
-TAG="3.6.6"
+TAG="3.8.r1"
 
-if [ -n "${IBM_3270}" ]; then
-	echo "IBM 3270 support"
-	IMAGE_NAME="${IMAGE_NAME}-ibm3270"
-	DOCKERFILE=Dockerfile.ibm-3270
-else
-	# Just build main project.
-	DOCKERFILE=Dockerfile
-fi
+DOCKERFILE=Dockerfile
 
+FULL_IMAGE_NAME="${REGISTRY}${NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
-FULL_IMAGE_NAME="${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${TAG}"
-
-docker login -u user@dev.example.com -p password ${REGISTRY}
+# Docker Registry Login
+# =============================================================================
+# Private Docker Registry requires a login but Docker Hub does not.
+# =============================================================================
+## docker login -u user@dev.example.com --password fake ${REGISTRY}
 
 docker build -t $FULL_IMAGE_NAME ./ \
     --build-arg http_proxy=$http_proxy \

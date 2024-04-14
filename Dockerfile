@@ -1,12 +1,17 @@
 # CentOS 7 - Python 3 and Apache/MOD_WSGI (See mod_wsgi-express)
 # =============================================================================
-FROM dockercentral.it.example.com:5100/com.example.dev.argos/centos7-python3:3.6.6
+# Use Docker Hub Base Image.
+# =============================================================================
+FROM centos/python-38-centos7
 
 # HTTP Proxy Settings
-ENV http_proxy="http://one.proxy.example.com:8080"
-ENV https_proxy="http://one.proxy.example.com:8080"
-ENV HTTP_PROXY="http://one.proxy.example.com:8080"
-ENV HTTPS_PROXY="http://one.proxy.example.com:8080"
+# =============================================================================
+# These may be needed to reach public repositories.
+# =============================================================================
+## ENV http_proxy="http://one.proxy.example.com:8080"
+## ENV https_proxy="http://one.proxy.example.com:8080"
+## ENV HTTP_PROXY="http://one.proxy.example.com:8080"
+## ENV HTTPS_PROXY="http://one.proxy.example.com:8080"
 
 USER root
 
@@ -18,7 +23,7 @@ RUN systemctl enable httpd.service
 
 # Install mod_wsgi-express over Apache2.
 # =============================================================================
-RUN /usr/local/bin/pip3 install mod_wsgi
+RUN pip install mod_wsgi
 
 RUN yum -y clean all
 
@@ -28,8 +33,11 @@ WORKDIR /home/apache
 COPY ./hello.wsgi ./hello.wsgi
 
 # Start an "application container"
+# =============================================================================
+# Web service is run by "apache" user (No USER apache required)
+# =============================================================================
 EXPOSE 8001
-ENTRYPOINT /usr/local/bin/mod_wsgi-express start-server hello.wsgi \
+ENTRYPOINT mod_wsgi-express start-server hello.wsgi \
     --user apache --maximum-requests=250 \
     --access-log \
     --access-log-format "[hello-world][%>s] %h %l %u %b \"%{Referer}i\" \"%{User-agent}i\" \"%r\"" \

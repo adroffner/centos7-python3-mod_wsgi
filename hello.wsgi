@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from datetime import datetime
 import logging
 import logging.handlers
 
@@ -28,6 +29,7 @@ logger.addHandler(handler)
 def application(environ, start_response):
     status = '200 OK'
     output = [b'Hello Dockerized World!', b'\n' * 2]
+    output.extend([b'Time: ' + bytes(str(datetime.now()), 'ascii')])
     request_params = [
         '{}: {}'.format(key, value).encode('ascii')
         for key, value in sorted(environ.items())

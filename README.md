@@ -1,5 +1,5 @@
 Docker Image: CentOS - Python 3 and Apache with MOD WSGI
-==========================================================
+========================================================
 
 Create a new docker image based on a Docker Hub **centos python3.x** one.
 This image adds the Apache2 **httpd** server, **mod_wsgi** and **Python mod_wsgi Express**.

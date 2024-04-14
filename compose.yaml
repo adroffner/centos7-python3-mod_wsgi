@@ -1,0 +1,11 @@
+version: '2'
+services:
+    web:
+         image: com.example.dev/centos7-python3-mod_wsgi:3.8.r1
+         container_name: hello_mod_wsgi
+         ports:
+             - "8001:8001"
+         logging:
+             driver: json-file
+             options:
+                 max-size: "5m"
